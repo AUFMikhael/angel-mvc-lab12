@@ -8,22 +8,28 @@ use \PDO;
 class User extends BaseModel
 {
     public function save($data) {
-        $sql = "INSERT INTO users 
-                SET
-                    complete_name=:complete_name,
-                    email=:email,
-                    `password`=:password_hash";        
-        $statement = $this->db->prepare($sql);
-        $password_hash = $this->hashPassword($data['password']);
-        $statement->execute([
-            'complete_name' => $data['complete_name'],
-            'email' => $data['email'],
-            'password_hash' => $password_hash
-        ]);
-    
-        return $statement->rowCount();
+        try {
+            $sql = "INSERT INTO users (complete_name, email, password_hash) 
+                    VALUES (:complete_name, :email, :password_hash)";
+            
+            $statement = $this->db->prepare($sql);
+            
+            $password_hash = $this->hashPassword($data['password']); // Hash the password
+            
+            $statement->execute([
+                'complete_name' => $data['complete_name'],
+                'email' => $data['email'],
+                'password_hash' => $password_hash // Use the hashed password
+            ]);
+            
+            return $statement->rowCount();
+        } catch (\PDOException $e) {
+            error_log("Database Error: " . $e->getMessage()); // Log the error
+            return false; // Return false if there's an error
+        }
     }
-
+    
+    
     protected function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);

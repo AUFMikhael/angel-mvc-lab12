@@ -16,6 +16,8 @@ try {
 
     $router->get('/register', '\App\Controllers\ExamController@registrationForm');
     $router->post('/register', '\App\Controllers\ExamController@register');
+    $router->get('/login', '\App\Controllers\ExamController@loginForm'); // Link to the login page
+    $router->post('/login', '\App\Controllers\ExamController@login'); // Handle login submissions
     $router->get('/exam', '\App\Controllers\ExamController@exam');
     $router->post('/exam', '\App\Controllers\ExamController@exam');
     $router->get('/result', '\App\Controllers\ExamController@result');

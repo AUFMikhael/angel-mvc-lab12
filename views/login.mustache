@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+<body>
+    <div class="main__container">
+        <h2>Login</h2>
+
+        {{#error}}<p style="color: red;">{{error}}</p>{{/error}}
+
+        <form action="/login" method="POST">
+            <div>
+                <label for="email">Email Address <span style="color: red">*</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="password">Password <span style="color: red">*</span></label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+
+        <p>Don't have an account? <a href="/register">Register here</a></p>
+    </div>
+</body>
+</html>
